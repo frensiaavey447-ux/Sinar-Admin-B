@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -8,24 +9,31 @@ import { Menu, X } from "lucide-react";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
+  const menuItems = [
+    { name: "Home", href: "/home" },
+    { name: "Profile", href: "/profile" },
+    { name: "Jadwal Kegiatan", href: "/jadwal" },
+    { name: "Pengurus", href: "/pengurus" },
+    { name: "Laporan Keuangan", href: "/laporan" },
+    { name: "Inventaris", href: "/inventaris" },
+  ];
+
   return (
     <>
-      {/* ================= NAVBAR ================= */}
-      <header className="sticky top-0 z-50 bg-[#557D3E] shadow-md">
+      {/* NAVBAR */}
+      <header className="sticky top-0 z-50 border-b border-[#e5d5cc] bg-[#f8f3ee] shadow-sm">
         <div className="mx-auto max-w-[1500px] px-4 lg:px-8">
 
-          {/* ================= MOBILE ================= */}
+          {/* MOBILE */}
           <div className="flex h-16 items-center justify-between lg:hidden">
-
-            {/* Hamburger */}
             <button
               onClick={() => setOpen(true)}
-              className="text-white"
+              className="!bg-transparent !text-[#49372f] !border-transparent"
+              aria-label="Open menu"
             >
-              <Menu size={28} />
+              <Menu size={27} />
             </button>
 
-            {/* Logo */}
             <div className="flex items-center gap-2">
               <Image
                 src="/image/logo2 - Edited2.png"
@@ -45,13 +53,12 @@ export default function Navbar() {
                 className="object-contain"
               />
             </div>
-
           </div>
 
-          {/* ================= DESKTOP ================= */}
+          {/* DESKTOP */}
           <div className="hidden h-20 items-center justify-between lg:flex">
 
-            {/* Logo */}
+            {/* LOGO */}
             <div className="flex items-center gap-3">
               <Image
                 src="/image/logo2 - Edited2.png"
@@ -70,131 +77,82 @@ export default function Navbar() {
               />
             </div>
 
-            {/* Menu */}
-            <nav className="flex items-center gap-8">
-
-              <Link href="/home" className="font-semibold text-white hover:text-yellow-300">
-                Home
-              </Link>
-
-              <Link href="/jadwal" className="font-semibold text-white hover:text-yellow-300">
-                Jadwal Kegiatan
-              </Link>
-
-              <Link href="/pengurus" className="font-semibold text-white hover:text-yellow-300">
-                Pengurus
-              </Link>
-
-              <Link href="/laporan" className="font-semibold text-white hover:text-yellow-300">
-                Laporan Keuangan
-              </Link>
-
-              <Link href="/inventaris" className="font-semibold text-white hover:text-yellow-300">
-                Inventaris
-              </Link>
-
+            {/* MENU */}
+            <nav className="flex items-center gap-7">
+              {menuItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="whitespace-nowrap text-sm font-semibold text-[#49372f] transition hover:text-[#b86f52]"
+                >
+                  {item.name}
+                </Link>
+              ))}
             </nav>
 
-            {/* Login */}
-            <Link href="/login">
-              <button className="rounded-full bg-[#FFC928] px-8 py-2 font-bold text-[#29411C] transition hover:bg-yellow-400">
-                Login
-              </button>
+            {/* LOGIN DESKTOP */}
+            <Link
+              href="/login"
+              className="rounded-full !bg-[#B86F52] px-8 py-3 font-semibold !text-white transition hover:!bg-[#9D563D]"
+            >
+              Login
             </Link>
-
           </div>
         </div>
       </header>
 
-      {/* ================= OVERLAY ================= */}
+      {/* OVERLAY MOBILE */}
       <div
         onClick={() => setOpen(false)}
-        className={`fixed inset-0 z-40 bg-black/40 transition-all duration-300 lg:hidden ${
-          open
-            ? "visible opacity-100"
-            : "invisible opacity-0"
+        className={`fixed inset-0 z-40 bg-[#49372f]/30 transition-all duration-300 lg:hidden ${
+          open ? "visible opacity-100" : "invisible opacity-0"
         }`}
       />
 
-      {/* ================= SIDEBAR ================= */}
+      {/* SIDEBAR MOBILE */}
       <aside
-        className={`fixed top-0 left-0 z-50 h-screen w-72 bg-[#557D3E] shadow-2xl transition-transform duration-300 lg:hidden ${
-          open
-            ? "translate-x-0"
-            : "-translate-x-full"
+        className={`fixed left-0 top-0 z-50 h-screen w-72 bg-[#f8f3ee] shadow-2xl transition-transform duration-300 lg:hidden ${
+          open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Header */}
-        <div className="flex h-16 items-center justify-end border-b border-white/20 px-5">
+        <div className="flex h-16 items-center justify-between border-b border-[#e5d5cc] px-5">
+          <span className="font-semibold text-[#49372f]">
+            SINAR Menu
+          </span>
+
           <button
             onClick={() => setOpen(false)}
-            className="text-white hover:text-gray-200"
+            className="!bg-transparent !text-[#49372f] !border-transparent"
+            aria-label="Close menu"
           >
-            <X size={28} />
+            <X size={27} />
           </button>
         </div>
 
-        {/* Content */}
         <div className="flex h-[calc(100%-64px)] flex-col">
-
-          {/* Menu */}
-          <nav className="flex-1 flex flex-col text-white font-semibold">
-
-            <Link
-              href="/home"
-              onClick={() => setOpen(false)}
-              className="border-b border-white/10 px-6 py-4 hover:bg-[#6E8F2F]"
-            >
-              Home
-            </Link>
-
-            <Link
-              href="/jadwal"
-              onClick={() => setOpen(false)}
-              className="border-b border-white/10 px-6 py-4 hover:bg-[#6E8F2F]"
-            >
-              Jadwal Kegiatan
-            </Link>
-
-            <Link
-              href="/pengurus"
-              onClick={() => setOpen(false)}
-              className="border-b border-white/10 px-6 py-4 hover:bg-[#6E8F2F]"
-            >
-              Pengurus
-            </Link>
-
-            <Link
-              href="/laporan"
-              onClick={() => setOpen(false)}
-              className="border-b border-white/10 px-6 py-4 hover:bg-[#6E8F2F]"
-            >
-              Laporan Keuangan
-            </Link>
-
-            <Link
-              href="/inventaris"
-              onClick={() => setOpen(false)}
-              className="border-b border-white/10 px-6 py-4 hover:bg-[#6E8F2F]"
-            >
-              Inventaris
-            </Link>
-
-
+          <nav className="flex flex-1 flex-col font-semibold text-[#49372f]">
+            {menuItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="border-b border-[#e5d5cc] px-6 py-4 transition hover:bg-[#f1ddd3]"
+              >
+                {item.name}
+              </Link>
+            ))}
           </nav>
 
-          {/* Login Button */}
+          {/* LOGIN MOBILE */}
           <div className="p-6">
-            <Link href="/login">
-              <button
-                onClick={() => setOpen(false)}
-                className="w-full rounded-xl bg-[#FFC928] py-3 text-lg font-bold text-[#29411C] transition hover:bg-yellow-400"
-              >
-                Login
-              </button>
+            <Link
+              href="/login"
+              onClick={() => setOpen(false)}
+              className="block w-full rounded-full !bg-[#B86F52] px-8 py-3 text-center font-semibold !text-white transition hover:!bg-[#9D563D]"
+            >
+              Login
             </Link>
           </div>
-
         </div>
       </aside>
     </>

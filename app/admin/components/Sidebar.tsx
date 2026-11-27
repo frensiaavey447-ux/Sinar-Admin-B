@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -8,140 +9,66 @@ type Props = {
   onClose: () => void;
 };
 
-export default function Sidebar({
-  open,
-  onClose,
-}: Props) {
+export default function Sidebar({ open, onClose }: Props) {
   const menus = [
-    {
-      name: "Home",
-      href: "/home",
-    },
-    {
-      name: "Profil",
-      href: "/profile",
-    },
-    {
-      name: "Jadwal Kegiatan",
-      href: "/jadwal",
-    },
-    {
-      name: "Pengurus",
-      href: "/pengurus",
-    },
-    {
-      name: "Laporan Pengeluaran",
-      href: "/laporan",
-    },
-    {
-      name: "Inventaris",
-      href: "/inventaris",
-    },
+    { name: "Home", href: "/home" },
+    { name: "Profile", href: "/profile" },
+    { name: "Jadwal Kegiatan", href: "/jadwal" },
+    { name: "Pengurus", href: "/pengurus" },
+    { name: "Laporan Keuangan", href: "/laporan" },
+    { name: "Inventaris", href: "/inventaris" },
   ];
 
   return (
     <>
-      {/* Overlay */}
-
+      {/* OVERLAY */}
       <div
         onClick={onClose}
-        className={`
-          fixed
-          inset-0
-          bg-black/60
-          z-40
-          transition-all
-
-          ${
-            open
-              ? "opacity-100 visible"
-              : "opacity-0 invisible"
-          }
-        `}
+        className={`fixed inset-0 z-40 bg-[#26352C]/30 transition-all duration-300 ${
+          open ? "visible opacity-100" : "invisible opacity-0"
+        }`}
       />
 
-      {/* Sidebar */}
-
+      {/* SIDEBAR */}
       <aside
-        className={`
-          fixed
-          top-0
-          left-0
-
-          h-screen
-          w-72
-
-          bg-[#467235]
-
-          z-50
-
-          transition-all
-          duration-300
-
-          ${
-            open
-              ? "translate-x-0"
-              : "-translate-x-full"
-          }
-        `}
+        className={`fixed left-0 top-0 z-50 h-screen w-72 bg-[#F8F7F2] shadow-2xl transition-transform duration-300 ${
+          open ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
-
-        <div className="flex items-center justify-between p-5 border-b border-white/20">
-
-          <h2 className="text-white font-bold text-xl">
+        {/* HEADER */}
+        <div className="flex items-center justify-between border-b border-[#E2E8DC] p-5">
+          <h2 className="text-xl font-bold text-[#304536]">
             Menu
           </h2>
 
-          <button onClick={onClose}>
-            <X className="text-white" />
+          <button
+            onClick={onClose}
+            className="text-[#304536]"
+            aria-label="Close menu"
+          >
+            <X size={24} />
           </button>
-
         </div>
 
-        <nav className="flex flex-col p-5 gap-4">
-
+        {/* MENU */}
+        <nav className="flex flex-col gap-2 p-5">
           {menus.map((menu) => (
-
             <Link
               key={menu.href}
               href={menu.href}
               onClick={onClose}
-              className="
-                text-white
-                font-semibold
-                rounded-lg
-                px-3
-                py-3
-
-                hover:bg-[#355728]
-                transition
-              "
+              className="rounded-lg px-3 py-3 font-semibold text-[#304536] transition hover:bg-[#E8EEE3]"
             >
               {menu.name}
             </Link>
-
           ))}
 
-          <button
-            className="
-              mt-6
-
-              bg-[#FFC928]
-
-              rounded-xl
-
-              py-3
-
-              text-[#355728]
-
-              font-bold
-            "
-          >
-            Login
-          </button>
-
+          <Link href="/login" onClick={onClose}>
+            <button className="mt-6 w-full rounded-xl bg-[#526F55] py-3 font-bold text-white transition hover:bg-[#405C45]">
+              Login
+            </button>
+          </Link>
         </nav>
-
       </aside>
     </>
   );

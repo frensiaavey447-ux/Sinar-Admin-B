@@ -1,10 +1,13 @@
+
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -14,7 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "SINAR",
-  description: "Sistem Informasi, Ngaji, dan Administrasi Rumah Ibadah",
+  description:
+    "Sistem Informasi, Ngaji, dan Administrasi Rumah Ibadah",
   verification: {
     google: "OrG79jAY-tRjgXMStNBS6BjRtEMdQZczYl9zr85b5QY",
   },
@@ -27,10 +31,12 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      lang="id"
+      className={`${poppins.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">
+        {children}
+      </body>
     </html>
   );
 }

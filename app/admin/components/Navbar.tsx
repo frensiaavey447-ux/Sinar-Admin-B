@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -23,50 +24,39 @@ export default function Navbar() {
     router.push("/home");
   }
 
-  // ================= PUBLIC / ADMIN LINK =================
+  const homeLink = "/home";
+  const profileLink = isLogin ? "/admin/profile" : "/profile";
+  const jadwalLink = isLogin ? "/admin/jadwal" : "/jadwal";
+  const pengurusLink = isLogin ? "/admin/pengurus" : "/pengurus";
+  const laporanLink = isLogin ? "/admin/laporan" : "/laporan";
+  const inventarisLink = isLogin ? "/admin/inventaris" : "/inventaris";
 
-  const homeLink = isLogin ? "/home" : "/home";
-
-  const profileLink = isLogin
-    ? "/admin/profile"
-    : "/profile";
-
-  const jadwalLink = isLogin
-    ? "/admin/jadwal"
-    : "/jadwal";
-
-  const pengurusLink = isLogin
-    ? "/admin/pengurus"
-    : "/pengurus";
-
-  const laporanLink = isLogin
-    ? "/admin/laporan"
-    : "/laporan";
-
-  const inventarisLink = isLogin
-    ? "/admin/inventaris"
-    : "/inventaris";
+  const menus = [
+    { name: "Home", href: homeLink },
+    { name: "Profile", href: profileLink },
+    { name: "Jadwal Kegiatan", href: jadwalLink },
+    { name: "Pengurus", href: pengurusLink },
+    { name: "Laporan Keuangan", href: laporanLink },
+    { name: "Inventaris", href: inventarisLink },
+  ];
 
   return (
     <>
-      {/* ================= NAVBAR ================= */}
-
-      <header className="sticky top-0 z-50 bg-[#557D3E] shadow-md">
+      {/* NAVBAR */}
+      <header className="sticky top-0 z-50 border-b border-[#DDE5D8] bg-[#E8EEE3] shadow-sm">
         <div className="mx-auto max-w-[1500px] px-4 lg:px-8">
 
-          {/* ================= MOBILE ================= */}
-
+          {/* MOBILE NAVBAR */}
           <div className="flex h-16 items-center justify-between lg:hidden">
-
             <button
               onClick={() => setOpen(true)}
-              className="text-white"
+              className="bg-transparent text-[#304536]"
+              aria-label="Open menu"
             >
               <Menu size={28} />
             </button>
 
             <div className="flex items-center gap-2">
-
               <Image
                 src="/image/logo2 - Edited2.png"
                 alt="SINAR"
@@ -77,22 +67,19 @@ export default function Navbar() {
 
               <Image
                 src="/image/logo111.png"
-                alt="Logo"
+                alt="Logo YPI"
                 width={42}
                 height={42}
                 priority
               />
-
             </div>
-
           </div>
 
-          {/* ================= DESKTOP ================= */}
-
+          {/* DESKTOP NAVBAR */}
           <div className="hidden h-20 items-center justify-between lg:flex">
 
+            {/* LOGO */}
             <div className="flex items-center gap-3">
-
               <Image
                 src="/image/logo2 - Edited2.png"
                 alt="SINAR"
@@ -103,197 +90,114 @@ export default function Navbar() {
 
               <Image
                 src="/image/logo111.png"
-                alt="Logo"
+                alt="Logo YPI"
                 width={60}
                 height={60}
                 priority
               />
-
             </div>
 
-            <nav className="flex items-center gap-8">
-
-                            <Link
-                href={homeLink}
-                className="font-semibold text-white transition hover:text-yellow-300"
-              >
-                Home
-              </Link>
-
-              <Link
-                href={profileLink}
-                className="font-semibold text-white transition hover:text-yellow-300"
-              >
-                Profile
-              </Link>
-
-              <Link
-                href={jadwalLink}
-                className="font-semibold text-white transition hover:text-yellow-300"
-              >
-                Jadwal Kegiatan
-              </Link>
-
-              <Link
-                href={pengurusLink}
-                className="font-semibold text-white transition hover:text-yellow-300"
-              >
-                Pengurus
-              </Link>
-
-              <Link
-                href={laporanLink}
-                className="font-semibold text-white transition hover:text-yellow-300"
-              >
-                Laporan Keuangan
-              </Link>
-
-              <Link
-                href={inventarisLink}
-                className="font-semibold text-white transition hover:text-yellow-300"
-              >
-                Inventaris
-              </Link>
-
+            {/* MENU */}
+            <nav className="flex items-center gap-7">
+              {menus.map((menu) => (
+                <Link
+                  key={menu.href}
+                  href={menu.href}
+                  className="whitespace-nowrap text-sm font-semibold text-[#304536] transition hover:text-[#B86F52]"
+                >
+                  {menu.name}
+                </Link>
+              ))}
             </nav>
 
-            {/* ================= LOGIN ================= */}
-
+            {/* LOGIN / LOGOUT DESKTOP */}
             {isLogin ? (
               <button
                 onClick={handleLogout}
-                className="rounded-full bg-[#FFC928] px-8 py-2 font-bold text-[#29411C] transition hover:bg-yellow-400"
+                className="rounded-full !bg-[#B86F52] px-8 py-3 font-semibold !text-white transition hover:!bg-[#9D563D]"
               >
                 Log Out
               </button>
             ) : (
-              <Link href="/login">
-                <button className="rounded-full bg-[#FFC928] px-8 py-2 font-bold text-[#29411C] transition hover:bg-yellow-400">
-                  Login
-                </button>
+              <Link
+                href="/login"
+                className="rounded-full !bg-[#B86F52] px-8 py-3 font-semibold !text-white transition hover:!bg-[#9D563D]"
+              >
+                Login
               </Link>
             )}
-
           </div>
-
         </div>
-
       </header>
 
-      {/* ================= OVERLAY ================= */}
-
+      {/* MOBILE OVERLAY */}
       <div
         onClick={() => setOpen(false)}
-        className={`fixed inset-0 z-40 bg-black/40 transition-all duration-300 lg:hidden ${
-          open
-            ? "visible opacity-100"
-            : "invisible opacity-0"
+        className={`fixed inset-0 z-40 bg-[#26352C]/30 transition-all duration-300 lg:hidden ${
+          open ? "visible opacity-100" : "invisible opacity-0"
         }`}
       />
 
-            {/* ================= MOBILE SIDEBAR ================= */}
-
+      {/* MOBILE SIDEBAR */}
       <aside
-        className={`fixed top-0 left-0 z-50 h-screen w-72 bg-[#557D3E] shadow-2xl transition-transform duration-300 lg:hidden ${
+        className={`fixed left-0 top-0 z-50 h-screen w-72 bg-[#F8F7F2] shadow-2xl transition-transform duration-300 lg:hidden ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Header */}
-        <div className="flex h-16 items-center justify-end border-b border-white/20 px-5">
+        {/* SIDEBAR HEADER */}
+        <div className="flex h-16 items-center justify-between border-b border-[#E2E8DC] px-5">
+          <span className="font-semibold text-[#304536]">
+            SINAR Menu
+          </span>
+
           <button
             onClick={() => setOpen(false)}
-            className="text-white hover:text-gray-200"
+            className="bg-transparent text-[#304536]"
+            aria-label="Close menu"
           >
             <X size={28} />
           </button>
         </div>
 
-        {/* Menu */}
+        {/* SIDEBAR CONTENT */}
         <div className="flex h-[calc(100%-64px)] flex-col">
-
-          <nav className="flex-1 flex flex-col font-semibold text-white">
-
-            <Link
-              href={homeLink}
-              onClick={() => setOpen(false)}
-              className="border-b border-white/10 px-6 py-4 hover:bg-[#6E8F2F]"
-            >
-              Home
-            </Link>
-
-            <Link
-              href={profileLink}
-              onClick={() => setOpen(false)}
-              className="border-b border-white/10 px-6 py-4 hover:bg-[#6E8F2F]"
-            >
-              Profile
-            </Link>
-
-            <Link
-              href={jadwalLink}
-              onClick={() => setOpen(false)}
-              className="border-b border-white/10 px-6 py-4 hover:bg-[#6E8F2F]"
-            >
-              Jadwal Kegiatan
-            </Link>
-
-            <Link
-              href={pengurusLink}
-              onClick={() => setOpen(false)}
-              className="border-b border-white/10 px-6 py-4 hover:bg-[#6E8F2F]"
-            >
-              Pengurus
-            </Link>
-
-            <Link
-              href={laporanLink}
-              onClick={() => setOpen(false)}
-              className="border-b border-white/10 px-6 py-4 hover:bg-[#6E8F2F]"
-            >
-              Laporan Keuangan
-            </Link>
-
-            <Link
-              href={inventarisLink}
-              onClick={() => setOpen(false)}
-              className="border-b border-white/10 px-6 py-4 hover:bg-[#6E8F2F]"
-            >
-              Inventaris
-            </Link>
-
+          <nav className="flex flex-1 flex-col font-semibold text-[#304536]">
+            {menus.map((menu) => (
+              <Link
+                key={menu.href}
+                href={menu.href}
+                onClick={() => setOpen(false)}
+                className="border-b border-[#E2E8DC] px-6 py-4 transition hover:bg-[#E8EEE3]"
+              >
+                {menu.name}
+              </Link>
+            ))}
           </nav>
 
-          {/* Login / Logout */}
-
+          {/* SIDEBAR LOGIN / LOGOUT */}
           <div className="p-6">
-
             {isLogin ? (
               <button
                 onClick={() => {
                   setOpen(false);
                   handleLogout();
                 }}
-                className="w-full rounded-xl bg-[#FFC928] py-3 text-lg font-bold text-[#29411C] transition hover:bg-yellow-400"
+                className="w-full rounded-xl !bg-[#B86F52] py-3 text-lg font-semibold !text-white shadow-sm transition duration-200 hover:!bg-[#9D563D] hover:shadow-md"
               >
                 Log Out
               </button>
             ) : (
-              <Link href="/login">
-                <button
-                  onClick={() => setOpen(false)}
-                  className="w-full rounded-xl bg-[#FFC928] py-3 text-lg font-bold text-[#29411C] transition hover:bg-yellow-400"
-                >
-                  Login
-                </button>
+              <Link
+                href="/login"
+                onClick={() => setOpen(false)}
+                className="block w-full rounded-xl !bg-[#B86F52] py-3 text-center text-lg font-semibold !text-white shadow-sm transition duration-200 hover:!bg-[#9D563D] hover:shadow-md"
+              >
+                Login
               </Link>
             )}
-
           </div>
-
         </div>
-
       </aside>
-
     </>
   );
 }

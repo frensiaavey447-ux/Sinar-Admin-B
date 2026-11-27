@@ -1,3 +1,4 @@
+
 "use client";
 
 import LoginNavbar from "./LoginNavbar";
@@ -6,21 +7,11 @@ import LoginCard from "./LoginCard";
 
 export default function LoginPage() {
   return (
-    <main className="min-h-screen bg-[#16240D] text-white flex flex-col ">
+    <main className="flex min-h-screen flex-col bg-[#f8f7f2] text-[#304536]">
 
       <LoginNavbar />
 
-      <section
-        className="
-          flex-1
-          flex
-          items-center
-          justify-center
-          px-4
-          py-4
-          text-[12px]
-        "
-      >
+      <section className="flex flex-1 items-center justify-center bg-[#f8f7f2] px-4 py-8">
         <LoginCard />
       </section>
 
